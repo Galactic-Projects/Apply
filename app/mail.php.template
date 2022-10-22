@@ -1,0 +1,38 @@
+<?php
+use PHPMailer\PHPMailer\PHPMailer;
+
+require_once("../libs/PHPMailer/class.phpmailer.php");
+
+function sendMail($address, $username, $replyAddress, $fromAddress, $subject, $altBody ,$htmlInput) {
+    try {
+        $host = "'.$_POST['mailhost'].'";
+        $users = "'.$_POST["username"].'";
+        $port = "'.$_POST["port"].'";
+        $email = "'.$_POST["email"].'";
+        $password = "'.$_POST["password"].'";
+
+        $mail = new PHPMailer(true);
+        $mail->IsSMTP();
+        $mail->SMTPDebug = 3;
+
+        $mail->Host       = $host; 
+        $mail->SMTPAuth   = true;             
+        $mail->Port       = $port;                  
+        $mail->Username   = $users; 
+        $mail->Password   = $password;    
+        $mail->AddReplyTo("username.name@a-bc.fr", "Firstname/Lastname");
+        $mail->AddAddress($address, $username);
+        $mail->SetFrom($email, "Firstname/Lastname");
+        $mail->Subject = $subject;
+        $mail->AltBody = $altBody;
+        $mail->MsgHTML(file_get_contents($htmlInput));
+        $mail->Send();
+
+        echo "Message sent\n";
+    } catch (phpmailerException $e) {
+        echo $e->errorMessage(); 
+    } catch (Exception $e) {
+        echo $e->getMessage(); 
+    }
+}
+?>
