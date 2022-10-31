@@ -7,6 +7,7 @@ define("LOGIN_NOT_VERIFIED","Your Account isn't verified, please check your emai
 define("REGISTER_ERROR_EMAIL_INVALID", "Please enter a valid email!");
 define("REGISTER_ERROR_EMAIL_ALREADY", "Email already exists!");
 define("REGISTER_ERROR_USERNAME_ALREADY", "Username already exists!");
+define("REGISTER_ERROR_USERNAME_EMPTY", "Username can't be empty!");
 define("REGISTER_ERROR_PASSWORD_ENTER", "Enter a password!");
 define("REGISTER_ERROR_PASSWORD_MATCH", "Passwords don't match!");
 define("REGISTER_ERROR_SAVE", "There was an error saving your data!");
@@ -16,7 +17,7 @@ define("LOGOUT_SUCCESS", "Logout successful!");
 define("LOGOUT_ERROR", "You're not logged in!");
 // SET
 define("CODE_ERROR_ENABLEID", "Invalid id for enable your account!");
-define("CODE_ERROR_TIME", "This code has expired!");
+define("CODE_ERROR_ENABLED_ALREADY", "Your account is already enabled!");
 define("CODE_ERROR_INVALID", "Invalid code!");
 define("CODE_SUCCESS_ENABLED", "Your account has been enabled!");
 // GENERAL

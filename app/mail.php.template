@@ -25,7 +25,7 @@ function sendMail($address, $username, $replyAddress, $fromAddress, $subject, $a
         $mail->SetFrom($email, "Firstname/Lastname");
         $mail->Subject = $subject;
         $mail->AltBody = $altBody;
-        $mail->MsgHTML(file_get_contents($htmlInput));
+        $mail->MsgHTML(str_replace("superAdventageUrl", $activate, $htmlInput));
         $mail->Send();
 
         echo "Message sent\n";

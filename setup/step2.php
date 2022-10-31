@@ -32,7 +32,7 @@ if(isset($_POST["submit"])){
                 ENABLEID VARCHAR(48) NOT NULL DEFAULT '',
                 ENABLEDATE TIMESTAMP NULL,
                 PASSWORD_CODE VARCHAR(255) NOT NULL,
-                PASSWORD_time TIMESTAMP NULL,
+                PASSWORD_TIME TIMESTAMP NULL,
                 SECURITY_IDENTIFIER VARCHAR(255) NOT NULL,
                 SECURITY_TOKEN VARCHAR(255) NOT NULL,
                 SECURITY_CREATED TIMESTAMP NULL
@@ -40,7 +40,7 @@ if(isset($_POST["submit"])){
             // USERS
             $dbUsers->execute();
             $account = $mysql->prepare("INSERT INTO users (USERNAME, EMAIL, PASSWORD, RANK, AGE, ENABLED) VALUES (:user, :email, :password, :rank, :age, :enabled)");
-            $hash = password_hash($_POST["username"], PASSWORD_DEFAULT);
+            $hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
             $rank = "3";
             $age = date('Y-m-d H-M-s');
             $enable = true;

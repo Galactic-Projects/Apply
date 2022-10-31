@@ -1,12 +1,11 @@
 <?php
 session_start();
-if(!isset($_SESSION['USERID'])) {
-    alert(LOGOUT_ERROR);
+if(!isset($_SESSION['userid'])) {
     header("Location: /");
     exit();
 }
 session_destroy();
-alert(LOGOUT_SUCCESS);
+// alert(LOGOUT_SUCCESS);
 header("Location: /");
 exit();
 ?>

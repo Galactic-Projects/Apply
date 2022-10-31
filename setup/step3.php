@@ -9,17 +9,13 @@ if(isset($_SESSION["host"]) && isset($_SESSION["database"]) &&
     isset($_SESSION["user"]) && isset($_SESSION["password"])){
     if(isset($_POST["submit"])){
 
-        if(($_POST['mailhost'] || $_POST['username'] || $_POST['port'] || $_POST['email'] || $_POST['password']) != null){
+        if(isset($_POST['mailhost'])){
             $mailfile = fopen("../app/mail.php", "w");
-            if(!$mailfile){ // TODO Bug-Fixing: Issue while create file!
-                echo fwrite($mailfile, '<?php
-use PHPMailer\PHPMailer\PHPMailer;
-
-require_once("../libs/PHPMailer/class.phpmailer.php");
-
+            if(!$mailfile){
+                echo fwrite($mailfile, '<?php use PHPMailer\PHPMailer\PHPMailer; require_once("../libs/PHPMailer/class.phpmailer.php");
 function sendMail($address, $username, $replyAddress, $fromAddress, $subject, $altBody ,$htmlInput) {
     try {
-        $host = "'.$_POST['mailhost'].'";
+        $host = "'.$_POST["mailhost"].'";
         $users = "'.$_POST["username"].'";
         $port = "'.$_POST["port"].'";
         $email = "'.$_POST["email"].'";
