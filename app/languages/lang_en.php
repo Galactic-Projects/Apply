@@ -14,7 +14,6 @@ define("REGISTER_ERROR_SAVE", "There was an error saving your data!");
 define("REGISTER_SUCCESS", "Register successful! You will be headed to <a href='login.php'>Login</a>.");
 // LOGOUT
 define("LOGOUT_SUCCESS", "Logout successful!");
-define("LOGOUT_ERROR", "You're not logged in!");
 // SET
 define("CODE_ERROR_ENABLEID", "Invalid id for enable your account!");
 define("CODE_ERROR_ENABLED_ALREADY", "Your account is already enabled!");
@@ -30,6 +29,10 @@ define("PLACEHOLDER_REPEAT_PASSWORD", "Repeat password");
 define("NAVBAR_HOME", "HOME");
 define("NAVBAR_APPLY", "APPLY");
 define("NAVBAR_ACCOUNT", "ACCOUNT");
+// ACCOUNT
+define("ACCOUNT_PROFILE_LOGOUT", "Logout");
+define("ACCOUNT_PROFILE_IMAGE_BUTTON", "Upload");
+define("ACCOUNT_PROFILE_IMAGE_ERROR_SIZE", "File is to big (Max. 100MB)!");
 // TITLE
 define("TITLE_HOME", "Home :: Apply - Galactic Projects");
 define("TITLE_APPLY", "Apply :: Apply - Galactic Projects");

@@ -3,13 +3,14 @@ if(!file_exists("app/mysql.php")){
     header("Location: setup/index.php");
     exit;
 }
+session_start();
 require "app/data.php";
-require "app/languages/lang_en.php";
 include "app/inc/header.php";
 include "app/inc/navbar.php";
-
-if(!isset($_SESSION['userid'])) {
-    header("Location: login.php");
-    exit();
+$id = $_SESSION['userid'];
+$language = 'en';
+if(isset($id)) {
+    $email = getEmailById($id);
+    $language = getLanguage($email);
 }
-echo "logged in: " . $_SESSION["USERID"];
+require "app/languages/lang_" . $language . ".php";

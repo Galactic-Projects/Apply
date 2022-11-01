@@ -45,6 +45,7 @@ function existsUsername($username){
         return true;
     }
 }
+
 function getLanguage($email){
     require("mysql.php");
     $stmt = $mysql->prepare("SELECT * FROM users WHERE EMAIL = :email");
@@ -54,6 +55,17 @@ function getLanguage($email){
         return $row["LANGUAGE"];
     }
 }
+
+function getUsername($email){
+    require("mysql.php");
+    $stmt = $mysql->prepare("SELECT * FROM users WHERE EMAIL = :email");
+    $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+    $stmt->execute();
+    while ($row = $stmt->fetch()) {
+        return $row["USERNAME"];
+    }
+}
+
 function getProfilePicture($email){
     require("mysql.php");
     $stmt = $mysql->prepare("SELECT * FROM users WHERE EMAIL = :email");
@@ -81,9 +93,16 @@ function getEmailById($id){
         return $row["EMAIL"];
     }
 }
+function updateProfilePicture($email, $path){
+    require("mysql.php");
+    $stmt = $mysql->prepare("UPDATE users SET PROFILEPICTURE = :value WHERE EMAIL = :email");
+    $stmt->bindParam(":user", $email, PDO::PARAM_STR);
+    $stmt->bindParam(":value", '', PDO::PARAM_STR);
+    $stmt->execute();
+}
 function updatePasswordTokens($email){
     require("mysql.php");
-    $stmt = $mysql->prepare("UPDATE accounts SET ENABLEID = :value, ENABLEDATE = :value2 WHERE EMAIL = :email");
+    $stmt = $mysql->prepare("UPDATE users SET ENABLEID = :value, ENABLEDATE = :value2 WHERE EMAIL = :email");
     $stmt->bindParam(":user", $email, PDO::PARAM_STR);
     $stmt->bindParam(":value", '', PDO::PARAM_STR);
     $stmt->bindParam(":value2", null, PDO::PARAM_STR);

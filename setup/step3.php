@@ -12,39 +12,39 @@ if(isset($_SESSION["host"]) && isset($_SESSION["database"]) &&
         if(isset($_POST['mailhost'])){
             $mailfile = fopen("../app/mail.php", "w");
             if(!$mailfile){
-                echo fwrite($mailfile, '<?php use PHPMailer\PHPMailer\PHPMailer; require_once("../libs/PHPMailer/class.phpmailer.php");
-function sendMail($address, $username, $replyAddress, $fromAddress, $subject, $altBody ,$htmlInput) {
-    try {
-        $host = "'.$_POST["mailhost"].'";
-        $users = "'.$_POST["username"].'";
-        $port = "'.$_POST["port"].'";
-        $email = "'.$_POST["email"].'";
-        $password = "'.$_POST["password"].'";
+                echo fwrite($mailfile, '<?php use PHPMailer\PHPMailer\PHPMailer; require "/vendor/phpmailer/phpmailer/src/PHPMailer.php";
+                function sendMail($address, $username, $replyAddress, $replyName, $fromAddress, $fromName, $subject, $altBody ,$htmlInput) {
+                    try {
+                        $host = "'.$_POST["mailhost"].'";
+                        $users =  "'.$_POST["username"].'";
+                        $port =  "'.$_POST["port"].'";
+                        $email =  "'.$_POST["email"].'";
+                        $password =  "'.$_POST["password"].'";
 
-        $mail = new PHPMailer(true);
-        $mail->IsSMTP();
-        $mail->SMTPDebug = 3;
+                        $mail = new PHPMailer(true);
+                        $mail->IsSMTP();
+                        $mail->SMTPDebug = 3;
 
-        $mail->Host       = $host; 
-        $mail->SMTPAuth   = true;             
-        $mail->Port       = $port;                  
-        $mail->Username   = $users; 
-        $mail->Password   = $password;    
-        $mail->AddReplyTo("username.name@a-bc.fr", "Firstname/Lastname");
-        $mail->AddAddress($address, $username);
-        $mail->SetFrom($email, "Firstname/Lastname");
-        $mail->Subject = $subject;
-        $mail->AltBody = $altBody;
-        $mail->MsgHTML(file_get_contents($htmlInput));
-        $mail->Send();
+                        $mail->Host       = $host; 
+                        $mail->SMTPAuth   = true;             
+                        $mail->Port       = $port;                  
+                        $mail->Username   = $users; 
+                        $mail->Password   = $password;    
+                        $mail->AddReplyTo($replyAddress, $replyName);
+                        $mail->AddAddress($address, $username);
+                        $mail->SetFrom($fromAddress, $fromName);
+                        $mail->Subject = $subject;
+                        $mail->AltBody = $altBody;
+                        $mail->MsgHTML(file_get_contents($htmlInput));
+                        $mail->Send();
 
-        echo "Message sent\n";
-    } catch (phpmailerException $e) {
-        echo $e->errorMessage(); 
-    } catch (Exception $e) {
-        echo $e->getMessage(); 
-    }
-}
+                        echo "Message sent\n";
+                    } catch (phpmailerException $e) {
+                        echo $e->errorMessage(); 
+                    } catch (Exception $e) {
+                        echo $e->getMessage(); 
+                    }
+                }
 ?>');
                 fclose($mailfile);
                 session_destroy();
@@ -77,8 +77,12 @@ function sendMail($address, $username, $replyAddress, $fromAddress, $subject, $a
                 $user = "'.$_SESSION["user"].'";
                 $password = "'.$_SESSION["password"].'";
                 try{
-                $mysql = new PDO("mysql:host=$host;dbname=$db", $user, $password);
-            } catch (PDOException $e){} ?> ');
+                    $mysql = new PDO("mysql:host=$host;dbname=$db", $user, $password);
+                } catch (PDOException $e){
+                    e->getMessage();
+                } 
+            ?> 
+        ');
         fclose($mysqlfile);
         session_destroy();
         ?>
