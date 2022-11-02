@@ -3,11 +3,11 @@ use PHPMailer\PHPMailer\PHPMailer;
 require "/vendor/phpmailer/phpmailer/src/PHPMailer.php";
 function sendMail($address, $username, $replyAddress, $replyName, $fromAddress, $fromName, $subject, $altBody ,$htmlInput) {
     try {
-        $host = "'.$_POST["mailhost"].'";
-        $users =  "'.$_POST["username"].'";
-        $port =  "'.$_POST["port"].'";
-        $email =  "'.$_POST["email"].'";
-        $password =  "'.$_POST["password"].'";
+        $host = '';
+        $users =  '';
+        $port =  '';
+        $email =  '';
+        $password =  '';
 
         $mail = new PHPMailer(true);
         $mail->IsSMTP();

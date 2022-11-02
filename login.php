@@ -13,6 +13,7 @@ if(isset($_SESSION['userid'])){
 require "app/data.php";
 include "app/inc/header.php";
 require "app/languages/lang_en.php";
+include "app/inc/navbar.php";
 
 if(isset($_GET['action'])) {
     $email = $_POST['email'];
@@ -32,7 +33,6 @@ if(isset($_GET['action'])) {
     }
 
 }
-include "app/inc/navbar.php";
 
 if(isset($message)) {
     echo $message;

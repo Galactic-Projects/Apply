@@ -7,13 +7,13 @@ session_start();
 require "app/data.php";
 include "app/inc/header.php";
 require "app/languages/lang_en.php";
+include "app/inc/navbar.php";
 
 if(isset($_SESSION["userid"])){
     header("Location: index.php");
     exit;
 }
 
-$showFormular = true;
 if(isset($_GET['action'])) {
     $error = false;
     $email = $_POST['email'];
@@ -40,37 +40,39 @@ if(isset($_GET['action'])) {
     }
 
     if(!$error) {
-        $id = generateRandomString(32);
+        require "app/security/generate.php";
+        $id = generateRandom();
+        echo $id;
+        createUser($username, $id, $email);
         $activate = "https://test.galacticprojects.net/password/set.php?userid=" . getId($email) . "&code=" . $id;
-        echo $activate;
-        createUser($username, $email, $id);
-        $message = "<div class='success'><img src='assets/icons/success.png' style='width:32px;height:32px;'><p>" . REGISTER_SUCCESS . "</p></div>";
-        /*if (file_exists("app/mail.php")) {
+        if (existsUsername($username)) {
+            $message = "<div class='success'><img src='assets/icons/success.png' style='width:32px;height:32px;'><p>" . REGISTER_SUCCESS . "</p></div>";
+        } else {
+            $message = "<div class='error'><img src='assets/icons/error.png' style='width:32px;height:32px;'><p>" . REGISTER_ERROR_SAVE . "</p></div>";
+            ?><meta http-equiv="refresh" content="3; URL=register.php"><?php
+        }
+
+        if (file_exists("app/mail.php")) {
+            require "app/mail.php";
             $mailBody = "app/email/html/activate_account.html";
             sendMail($email, $username, "no-reply@galacticprojects.net", "no-reply@galacticprojects.net", "Register - Apply Page", "Please get a email provider that supports html mails!", $mailBody);
         } else {
             $receiver = $email;
             $subject = "Register - Apply Page";
-            $from = "From: no-reply <no-reply@galacticprojects.net>";
+            $from = "From: Please no Reply <no-reply@galacticprojects.net>";
             $mailBody = str_replace("superAdventageUrl", $activate, file_get_contents("app/email/html/activate_account.html"));
 
             mail($receiver, $subject, $mailBody, $from);
-        }*/
-
-        $showFormular = false;
-        header("Location: login.php");
-
-        if (!existsUsername($username)) {
-            $message = "<div class='error'><img src='assets/icons/error.png' style='width:32px;height:32px;'><p>" . REGISTER_ERROR_SAVE . "</p></div>";
         }
+
+        ?><meta http-equiv="refresh" content="3; URL=login.php"><?php
     }
 }
-include "app/inc/navbar.php";
 
 if(isset($message)) {
     echo $message;
 }
-if($showFormular) {
+
 ?><div class="register">
         <form action="?action=1" method="post">
             <div class="cluster">
@@ -84,6 +86,6 @@ if($showFormular) {
         </form>
     </div>
 <?php
-}
 include "app/inc/footer.php";
+
 ?>

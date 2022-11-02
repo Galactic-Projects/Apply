@@ -1,17 +1,15 @@
 <?php
 
-function createUser($username, $email, $enableid) {
+function createUser($username, $password, $email) {
     require("mysql.php");
-    $stmt = $mysql->prepare("INSERT INTO users (USERNAME, EMAIL, PASSWORD, RANK, AGE, ENABLED, ENABLEID, ENABLEDATE) VALUES (:user, :email, 'temp', 1, :age, :enabled, :enableid, :enabledate)");
+    $stmt = $mysql->prepare("INSERT INTO users (USERNAME, EMAIL, PASSWORD, RANK, AGE) VALUES (:user, :email, :password, 1, :age)");
     $age = time();
     $enabled = false;
     $enableDate = time();
     $stmt->bindParam(":user", $username, PDO::PARAM_STR);
+    $stmt->bindParam(":password", $password, PDO::PARAM_STR);
     $stmt->bindParam(":email", $email, PDO::PARAM_STR);
     $stmt->bindParam(":age", $age);
-    $stmt->bindParam(":enabled", $enabled, PDO::PARAM_BOOL);
-    $stmt->bindParam(":enableid", $enableid, PDO::PARAM_STR);
-    $stmt->bindParam(":enabledate", $enableDate, PDO::PARAM_STR);
     $stmt->execute();
 }
 
@@ -100,14 +98,6 @@ function updateProfilePicture($email, $path){
     $stmt->bindParam(":value", '', PDO::PARAM_STR);
     $stmt->execute();
 }
-function updatePasswordTokens($email){
-    require("mysql.php");
-    $stmt = $mysql->prepare("UPDATE users SET ENABLEID = :value, ENABLEDATE = :value2 WHERE EMAIL = :email");
-    $stmt->bindParam(":user", $email, PDO::PARAM_STR);
-    $stmt->bindParam(":value", '', PDO::PARAM_STR);
-    $stmt->bindParam(":value2", null, PDO::PARAM_STR);
-    $stmt->execute();
-}
 function enableAccount($email){
     require("mysql.php");
     $stmt = $mysql->prepare("UPDATE users SET ENABLED = :enable WHERE EMAIL = :mail");
@@ -138,22 +128,6 @@ function getPassword($email){
     $stmt->execute();
     while ($row = $stmt->fetch()) {
         return $row["PASSWORD"];
-    }
-}
-function setPasswordToken($email, $token){
-    require("mysql.php");
-    $stmt = $mysql->prepare("UPDATE users SET ENABLEID = :id WHERE EMAIL = :mail");
-    $stmt->bindParam(":mail", $email, PDO::PARAM_STR);
-    $stmt->bindParam(":id", $token, PDO::PARAM_STR);
-    $stmt->execute();
-}
-function getPasswordToken($email){
-    require("mysql.php");
-    $stmt = $mysql->prepare("SELECT * FROM users WHERE EMAIL = :mail");
-    $stmt->bindParam(":mail", $email, PDO::PARAM_INT);
-    $stmt->execute();
-    while ($row = $stmt->fetch()) {
-        return $row["TOKEN"];
     }
 }
 ?>

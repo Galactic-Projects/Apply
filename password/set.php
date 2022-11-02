@@ -18,11 +18,11 @@ if(getLanguage($email) != null) {
 require "../app/languages/lang_".$language.".php";
 
 
-if(isEnabled($email)) {
+if(isEnabled($email) == 1) {
     die(CODE_ERROR_ENABLED_ALREADY);
 }
 
-if($code != getPasswordToken($email)) {
+if($code != getPassword($email)) {
     die(CODE_ERROR_INVALID);
 }
 
@@ -42,8 +42,7 @@ if(isset($_GET['action'])){
     $hashed = password_hash($password, PASSWORD_DEFAULT);
     setPassword($email, $hashed);
     enableAccount($email);
-    updatePasswordTokens($email);
-    if(getPassword($email) != 'temp'){
+    if(getPassword($email) != $code){
         $message = "<div class='success'><img src='/assets/icons/success.png' style='width:32px;height:32px;'><p>" . CODE_SUCCESS_ENABLED . "</p></div>";
     }
 }
