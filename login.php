@@ -48,7 +48,8 @@ if(isset($message)) {
         </div>
      <input type="submit" value="<?php echo BUTTON_SEND; ?>">
     </form>
-    Create an account: <a href="register.php">Register now!</a>
+    Create an account: <a href="register.php">Register now!</a><br>
+    Forgot password: <a href="reset.php">Reset here!</a>
 </div> <?php
 include "app/inc/footer.php";
 ?>

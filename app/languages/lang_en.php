@@ -11,6 +11,7 @@ define("REGISTER_ERROR_USERNAME_EMPTY", "Username can't be empty!");
 define("REGISTER_ERROR_PASSWORD_ENTER", "Enter a password!");
 define("REGISTER_ERROR_PASSWORD_MATCH", "Passwords don't match!");
 define("REGISTER_ERROR_SAVE", "There was an error saving your data! Try again later...");
+define("REGISTER_NO_MAIL", "There is no mail.php file. <a href='important'>Activate Account</a>");
 define("REGISTER_SUCCESS", "Register successful! You will be headed to <a href='login.php'>Login</a>.");
 // LOGOUT
 define("LOGOUT_SUCCESS", "Logout successful!");

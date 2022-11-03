@@ -51,15 +51,12 @@ if(isset($_GET['action'])) {
             ?><meta http-equiv="refresh" content="3; URL=register.php"><?php
         }
 
-        if (file_exists("app/mail.php")) {
+        if(file_exists("app/mail.php")){
             require "app/mail.php";
-            $mailBody = "app/email/html/activate_account.html";
-            sendMail($email, $username, "no-reply@galacticprojects.net", "no-reply@galacticprojects.net", "Register - Apply Page", "Please get a email provider that supports html mails!", $mailBody);
-        } else {
             $receiver = $email;
             $subject = "Register - Apply Page";
-            $from = "Please no Reply <no-reply@galacticprojects.net>";
-            $replyTo = "From: Support <contact@galacticprojects.net>";
+            $from = getFromName() . " <" . getFromMail() . ">";
+            $replyTo = getReplyName() . " <" . getReplyMail() . ">";
             $header  = "MIME-Version: 1.0\r\n";
             $header .= "From: $from\r\n";
             $header .= "Reply-To: $replyTo\r\n";
@@ -67,9 +64,11 @@ if(isset($_GET['action'])) {
             $header .= "X-Mailer: PHP ". phpversion();
 
             mail($receiver, $subject, str_replace("superAdventageUrl", $activate, file_get_contents("app/email/html/activate_account.html")), $header);
-        }
 
-        ?><meta http-equiv="refresh" content="3; URL=login.php"><?php
+            ?><meta http-equiv="refresh" content="3; URL=login.php"><?php
+        } else {
+            $message .= "<br>" . str_replace("important", $activate, REGISTER_NO_MAIL);
+        }
     }
 }
 

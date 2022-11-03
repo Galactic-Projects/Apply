@@ -1,0 +1,43 @@
+<?php // SOMEONE PLEASE HELP ME WITH THIS!
+use PHPMailer\PHPMailer\PHPMailer; 
+include_once "../vendor/phpmailer/phpmailer/src/PHPMailer.php";
+include_once "../vendor/phpmailer/phpmailer/src/SMTP.php"
+function sendMail($address, $username, $replyAddress, $replyName, $fromAddress, $fromName, $subject, $altBody ,$htmlInput) {
+    try {
+        $host = "";
+        $users =  "";
+        $port = 465;
+        $email =  "";
+        $password =  "";
+
+        $mail = new PHPMailer(true);
+        $mail->IsSMTP();
+        $mail->CharSet =  'UTF-8';
+        $mail->SMTPDebug = 3;
+        $mail->Debugoutput = 'html';
+
+        $mail->Host       = $host; 
+        $mail->SMTPAuth   = true;             
+        $mail->Port       = $port;                  
+        $mail->Username   = $users; 
+        $mail->Password   = $password;    
+        $mail->SMTPSecure = 'tls';
+        $mail->AddReplyTo($replyAddress, $replyName);
+        $mail->AddAddress($address, $username);
+        $mail->SetFrom($fromAddress, $fromName);
+        $mail->IsHTML(true);
+        $mail->Subject = $subject;
+        $mail->AltBody = $altBody;
+        $mail->MsgHTML(file_get_contents($htmlInput));
+        $mail->Send();
+        $mail->ClearAddresses();
+        $mail->ClearAttachments();
+
+        echo "Message sent\n";
+    } catch (phpmailerException $e) {
+        echo $e->errorMessage(); 
+    } catch (Exception $e) {
+        echo $e->getMessage(); 
+    }
+}
+?>
