@@ -42,8 +42,7 @@ if(isset($_GET['action'])) {
     if(!$error) {
         require "app/security/generate.php";
         $id = generateRandom();
-        echo $id;
-        createUser($username, $id, $email);
+        createUser($username, $email, $id);
         $activate = "https://test.galacticprojects.net/password/set.php?userid=" . getId($email) . "&code=" . $id;
         if (existsUsername($username)) {
             $message = "<div class='success'><img src='assets/icons/success.png' style='width:32px;height:32px;'><p>" . REGISTER_SUCCESS . "</p></div>";
@@ -59,10 +58,15 @@ if(isset($_GET['action'])) {
         } else {
             $receiver = $email;
             $subject = "Register - Apply Page";
-            $from = "From: Please no Reply <no-reply@galacticprojects.net>";
-            $mailBody = str_replace("superAdventageUrl", $activate, file_get_contents("app/email/html/activate_account.html"));
+            $from = "Please no Reply <no-reply@galacticprojects.net>";
+            $replyTo = "From: Support <contact@galacticprojects.net>";
+            $header  = "MIME-Version: 1.0\r\n";
+            $header .= "From: $from\r\n";
+            $header .= "Reply-To: $replyTo\r\n";
+            $header .= "Content-type: text/html; charset=utf-8\r\n";
+            $header .= "X-Mailer: PHP ". phpversion();
 
-            mail($receiver, $subject, $mailBody, $from);
+            mail($receiver, $subject, str_replace("superAdventageUrl", $activate, file_get_contents("app/email/html/activate_account.html")), $header);
         }
 
         ?><meta http-equiv="refresh" content="3; URL=login.php"><?php

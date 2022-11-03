@@ -29,22 +29,22 @@ if(isset($_POST["submit"])){
                 CREATED_AT TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 LATEST_ACCESS TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 ENABLED BOOLEAN DEFAULT FALSE,
-                PASSWORD_CODE VARCHAR(255) NOT NULL,
+                PASSWORD_CODE VARCHAR(255) NULL,
                 PASSWORD_TIME TIMESTAMP NULL,
-                SECURITY_IDENTIFIER VARCHAR(255) NOT NULL,
-                SECURITY_TOKEN VARCHAR(255) NOT NULL,
+                SECURITY_IDENTIFIER VARCHAR(255) NULL,
+                SECURITY_TOKEN VARCHAR(255) NULL,
                 SECURITY_CREATED TIMESTAMP NULL
             )");
             // USERS
             $dbUsers->execute();
-            $account = $mysql->prepare("INSERT INTO users (USERNAME, EMAIL, PASSWORD, RANK, AGE, ENABLED) VALUES (:user, :email, :password, :rank, :age, :enabled)");
+            $account = $mysql->prepare("INSERT INTO users (USERNAME, EMAIL, PASSWORD, RANK, AGE, ENABLED) VALUES (:user, :email, :passwd, :rank, :age, :enabled)");
             $hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
             $rank = "3";
             $age = date('Y-m-d H-M-s');
             $enable = true;
             $account->bindParam(":user", $_POST["username"], PDO::PARAM_STR);
             $account->bindParam(":email", $_POST["email"], PDO::PARAM_STR);
-            $account->bindParam(":password", $hash, PDO::PARAM_STR);
+            $account->bindParam(":passwd", $hash, PDO::PARAM_STR);
             $account->bindParam(":rank",$rank, PDO::PARAM_INT);
             $account->bindParam(":age", $age);
             $account->bindParam(":enabled", $enable, PDO::PARAM_BOOL);

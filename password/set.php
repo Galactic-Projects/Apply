@@ -3,22 +3,20 @@ session_start();
 require "../app/data.php";
 include "../app/inc/header.php";
 
-if(!isset($_GET['userid']) || !isset($_GET['code'])) {
-    die(CODE_ERROR_ENABLEID);
-}
-
 $user = $_GET['userid'];
 $code = $_GET['code'];
 $email = getEmailById($user);
-
 $language = 'en';
-if(getLanguage($email) != null) {
+if(isset($email)) {
     $language = getLanguage($email);
 }
 require "../app/languages/lang_".$language.".php";
 
+if(!isset($_GET['userid']) || !isset($_GET['code'])) {
+    die(CODE_ERROR_ENABLEID);
+}
 
-if(isEnabled($email) == 1) {
+if(isEnabled($email)) {
     die(CODE_ERROR_ENABLED_ALREADY);
 }
 
@@ -42,8 +40,10 @@ if(isset($_GET['action'])){
     $hashed = password_hash($password, PASSWORD_DEFAULT);
     setPassword($email, $hashed);
     enableAccount($email);
-    if(getPassword($email) != $code){
+
+    if(getPassword($email) != $code) {
         $message = "<div class='success'><img src='/assets/icons/success.png' style='width:32px;height:32px;'><p>" . CODE_SUCCESS_ENABLED . "</p></div>";
+        ?><meta http-equiv="refresh" content="3; URL=/login.php">><?php
     }
 }
 include "../app/inc/navbar.php";
@@ -55,12 +55,12 @@ if(isset($message)) {
 <div class='set'>
      <form action='set.php?action=1&amp;userid=<?php echo htmlentities($user); ?>&amp;code=<?php echo htmlentities($code); ?>' method='post'>
         <div class='cluster'>
-            <input type='password' placeholder='<?php PLACEHOLDER_PASSWORD ?>' size='40' maxlength='128' name='password'>
+            <input type='password' placeholder='<?php echo PLACEHOLDER_PASSWORD; ?>' size='40' maxlength='128' name='password'>
         </div>
         <div class='cluster'>
-            <input type='password' size='40' placeholder='<?php PLACEHOLDER_REPEAT_PASSWORD ?>' maxlength='128' name='password2'>
+            <input type='password' size='40' placeholder='<?php echo PLACEHOLDER_REPEAT_PASSWORD; ?>' maxlength='128' name='password2'>
         </div>
-     <input type='submit' value='<?php BUTTON_SEND ?>'>
+     <input type='submit' value='<?php echo BUTTON_SEND; ?>'>
     </form>
 </div>
 <?php

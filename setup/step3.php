@@ -12,7 +12,7 @@ if(isset($_SESSION["host"]) && isset($_SESSION["database"]) &&
         if(isset($_POST['mailhost'])){
             $mailfile = fopen("../app/mail.php", "w");
             if(!$mailfile){
-                echo fwrite($mailfile, '<?php use PHPMailer\PHPMailer\PHPMailer; require "/vendor/phpmailer/phpmailer/src/PHPMailer.php";
+                echo fwrite($mailfile, '<?php use PHPMailer\PHPMailer\PHPMailer; require "/vendor2/phpmailer/phpmailer/src/PHPMailer.php";
                 function sendMail($address, $username, $replyAddress, $replyName, $fromAddress, $fromName, $subject, $altBody ,$htmlInput) {
                     try {
                         $host = "'.$_POST["mailhost"].'";
