@@ -6,7 +6,6 @@ if(!file_exists("app/mysql.php")){
 session_start();
 require "app/data.php";
 include "app/inc/header.php";
-include "app/inc/navbar.php";
 
 if(!isset($_SESSION['userid'])){
     header("Location: login.php");
@@ -19,6 +18,10 @@ if(getLanguage($email) != null) {
     $language = getLanguage($email);
 }
 include "app/languages/lang_" . $language . ".php";
+include "app/inc/navbar.php";
+if(getRank($email) > 1) {
+    ?><a href="/admin/panel.php">ADMINISTRATOR PANEL</a><?php
+}
 
 if (isset($_POST['upload'])) {
     $path = '/assets/images/profiles/';

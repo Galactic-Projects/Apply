@@ -7,10 +7,7 @@ $user = $_GET['userid'];
 $code = $_GET['code'];
 $email = getEmailById($user);
 $language = 'en';
-if(isset($email)) {
-    $language = getLanguage($email);
-}
-require "../app/languages/lang_".$language.".php";
+require "../app/languages/lang_en.php";
 
 if(!isset($_GET['userid']) || !isset($_GET['code'])) {
     die(RESET_ERROR_ID);

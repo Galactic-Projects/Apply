@@ -5,7 +5,7 @@ if(!file_exists("../app/mysql.php")){
 }
 session_start();
 if(isset($_SESSION['userid'])){
-    header("Location: account.php");
+    header("Location: ../account.php");
     exit;
 }
 

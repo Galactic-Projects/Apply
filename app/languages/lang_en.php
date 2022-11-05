@@ -40,10 +40,13 @@ define("PLACEHOLDER_REPEAT_PASSWORD", "Repeat password");
 define("NAVBAR_HOME", "HOME");
 define("NAVBAR_APPLY", "APPLY");
 define("NAVBAR_ACCOUNT", "ACCOUNT");
+define("NAVBAR_ADMIN", "ADMINISTRATOR");
 // ACCOUNT
 define("ACCOUNT_PROFILE_LOGOUT", "Logout");
 define("ACCOUNT_PROFILE_IMAGE_BUTTON", "Upload");
 define("ACCOUNT_PROFILE_IMAGE_ERROR_SIZE", "File is to big (Max. 100MB)!");
+// ADMINISTRATION
+define("ADMIN_ERROR_PERMISSION", "You have no permission to enter this panel! <a href='/index.php'>Go back!</a>");
 // TITLE
 define("TITLE_HOME", "Home :: Apply - Galactic Projects");
 define("TITLE_APPLY", "Apply :: Apply - Galactic Projects");

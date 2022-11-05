@@ -6,7 +6,7 @@ if(!file_exists("app/mysql.php")){
 session_start();
 require "app/data.php";
 include "app/inc/header.php";
-include "app/inc/navbar.php";
+
 $id = $_SESSION['userid'];
 $language = 'en';
 if(isset($id)) {
@@ -14,3 +14,4 @@ if(isset($id)) {
     $language = getLanguage($email);
 }
 require "app/languages/lang_" . $language . ".php";
+include "app/inc/navbar.php";

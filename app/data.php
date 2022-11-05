@@ -119,6 +119,17 @@ function isEnabled($email): bool {
     }
     return false;
 }
+function getRank($email): int {
+    require("mysql.php");
+    $stmt = $mysql->prepare("SELECT * FROM users WHERE EMAIL = :mail");
+    $stmt->bindParam(":mail", $email, PDO::PARAM_STR);
+    $stmt->execute();
+    while ($row = $stmt->fetch()) {
+        return $row["RANK"];
+    }
+    return 0;
+}
+
 function setPasswordReset($email, $code): void {
     require("mysql.php");
     $stmt = $mysql->prepare("UPDATE users SET PASSWORD_CODE = :code, PASSWORD_TIME = CURRENT_TIMESTAMP WHERE EMAIL = :mail");
