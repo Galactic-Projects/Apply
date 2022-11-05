@@ -20,7 +20,7 @@ if(isEnabled($email)) {
     die(CODE_ERROR_ENABLED_ALREADY);
 }
 
-if($code != getPassword($email)) {
+if(sha1($code) != getPassword($email)) {
     die(CODE_ERROR_INVALID);
 }
 
@@ -41,7 +41,22 @@ if(isset($_GET['action'])){
     setPassword($email, $hashed);
     enableAccount($email);
 
-    if(getPassword($email) != $code) {
+    if(getPassword($email) != sha1($code)) {
+        if(file_exists("../app/mail.php")){
+            require "../app/mail.php";
+            $receiver = $email;
+            $subject = "Account enabled - Apply Page";
+            $from = getFromName() . " <" . getFromMail() . ">";
+            $replyTo = getReplyName() . " <" . getReplyMail() . ">";
+            $header  = "MIME-Version: 1.0\r\n";
+            $header .= "From: $from\r\n";
+            $header .= "Reply-To: $replyTo\r\n";
+            $header .= "Content-type: text/html; charset=utf-8\r\n";
+            $header .= "X-Mailer: PHP ". phpversion();
+
+            mail($receiver, $subject, file_get_contents("../app/email/html/account_enabled.html"), $header);
+        }
+
         $message = "<div class='success'><img src='/assets/icons/success.png' style='width:32px;height:32px;'><p>" . CODE_SUCCESS_ENABLED . "</p></div>";
         ?><meta http-equiv="refresh" content="3; URL=/login.php">><?php
     }
@@ -53,7 +68,7 @@ if(isset($message)) {
 }
 ?>
 <div class='set'>
-     <form action='set.php?action=1&amp;userid=<?php echo htmlentities($user); ?>&amp;code=<?php echo htmlentities($code); ?>' method='post'>
+     <form action='?action=1&amp;userid=<?php echo htmlentities($user); ?>&amp;code=<?php echo htmlentities($code); ?>' method='post'>
         <div class='cluster'>
             <input type='password' placeholder='<?php echo PLACEHOLDER_PASSWORD; ?>' size='40' maxlength='128' name='password'>
         </div>

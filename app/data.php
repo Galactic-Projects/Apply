@@ -119,6 +119,39 @@ function isEnabled($email): bool {
     }
     return false;
 }
+function setPasswordReset($email, $code): void {
+    require("mysql.php");
+    $stmt = $mysql->prepare("UPDATE users SET PASSWORD_CODE = :code, PASSWORD_TIME = CURRENT_TIMESTAMP WHERE EMAIL = :mail");
+    $stmt->bindParam(":mail", $email, PDO::PARAM_STR);
+    $stmt->bindParam(":code", $code, PDO::PARAM_STR);
+    $stmt->execute();
+}
+function getPasswordToken($email): string {
+    require("mysql.php");
+    $stmt = $mysql->prepare("SELECT * FROM users WHERE EMAIL = :mail");
+    $stmt->bindParam(":mail", $email, PDO::PARAM_STR);
+    $stmt->execute();
+    while ($row = $stmt->fetch()) {
+        return $row["PASSWORD_CODE"];
+    }
+    return "";
+}
+function getPasswordTokenTime($email): string {
+    require("mysql.php");
+    $stmt = $mysql->prepare("SELECT * FROM users WHERE EMAIL = :mail");
+    $stmt->bindParam(":mail", $email, PDO::PARAM_STR);
+    $stmt->execute();
+    while ($row = $stmt->fetch()) {
+        return $row["PASSWORD_TIME"];
+    }
+    return "";
+}
+function resetPasswordToken($email): void {
+    require("mysql.php");
+    $stmt = $mysql->prepare("UPDATE users SET PASSWORD_CODE = NULL, PASSWORD_TIME = NULL WHERE EMAIL = :mail");
+    $stmt->bindParam(":mail", $email, PDO::PARAM_STR);
+    $stmt->execute();
+}
 function setPassword($email, $passwd): void {
     require("mysql.php");
     $stmt = $mysql->prepare("UPDATE users SET PASSWORD = :passwd WHERE EMAIL = :mail");

@@ -4,7 +4,7 @@ define("LOGIN_ERROR", "Your E-Mail or Password is invalid!");
 define("LOGIN_SUCCESS", "Login successful! You will be headed to <a href='account.php'>Account</a>.");
 define("LOGIN_NOT_VERIFIED","Your Account isn't verified, please check your emails!");
 // REGISTER
-define("REGISTER_ERROR_EMAIL_INVALID", "Please enter a valid email!");
+define("ERROR_EMAIL_INVALID", "Please enter a valid email!");
 define("REGISTER_ERROR_EMAIL_ALREADY", "Email already exists!");
 define("REGISTER_ERROR_USERNAME_ALREADY", "Username already exists!");
 define("REGISTER_ERROR_USERNAME_EMPTY", "Username can't be empty!");
@@ -15,6 +15,16 @@ define("REGISTER_NO_MAIL", "There is no mail.php file. <a href='important'>Activ
 define("REGISTER_SUCCESS", "Register successful! You will be headed to <a href='login.php'>Login</a>.");
 // LOGOUT
 define("LOGOUT_SUCCESS", "Logout successful!");
+// FORGET
+define("FORGET_ERROR_USER_EXISTS", "No User was found!");
+define("FORGET_SUCCESS_RESET_EMAIL", "We have sent you a link to reset your password.");
+define("FORGET_NO_MAIL", "There is no mail.php file. <a href='important'>Forget Password</a>");
+// RESET
+define("RESET_ERROR_ID", "Invalid id!");
+define("RESET_ERROR_INVALID", "Invalid code!");
+define("RESET_ERROR_SAME", "Your old password can't be the new one!");
+define("RESET_ERROR_EXPIRED", "Your code is expired! <a href='forget.php'>Send new code</a>");
+define("RESET_SUCCESS_PASSWORD", "Your password has been reset!");
 // SET
 define("CODE_ERROR_ENABLEID", "Invalid id for enable your account!");
 define("CODE_ERROR_ENABLED_ALREADY", "Your account is already enabled!");

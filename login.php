@@ -20,7 +20,7 @@ if(isset($_GET['action'])) {
     $password = $_POST['password'];
     $message = null;
 
-    if (existsEmail($email) !== false && password_verify($password, getPassword($email))) {
+    if (existsEmail($email) && password_verify($password, getPassword($email))) {
         if(isEnabled($email)) {
             $_SESSION['userid'] = getID($email);
             $message = "<div class='success'><img src='assets/icons/success.png' style='width:32px;height:32px;'><p>" . LOGIN_SUCCESS . "</p></div>";
@@ -49,7 +49,7 @@ if(isset($message)) {
      <input type="submit" value="<?php echo BUTTON_SEND; ?>">
     </form>
     Create an account: <a href="register.php">Register now!</a><br>
-    Forgot password: <a href="reset.php">Reset here!</a>
+    Forgot password: <a href="password/forget.php">Reset here!</a>
 </div> <?php
 include "app/inc/footer.php";
 ?>

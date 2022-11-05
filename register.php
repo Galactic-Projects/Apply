@@ -8,6 +8,7 @@ require "app/data.php";
 include "app/inc/header.php";
 require "app/languages/lang_en.php";
 include "app/inc/navbar.php";
+require "app/config.php";
 
 if(isset($_SESSION["userid"])){
     header("Location: index.php");
@@ -42,8 +43,8 @@ if(isset($_GET['action'])) {
     if(!$error) {
         require "app/security/generate.php";
         $id = generateRandom();
-        createUser($username, $email, $id);
-        $activate = "https://test.galacticprojects.net/password/set.php?userid=" . getId($email) . "&code=" . $id;
+        createUser($username, $email, sha1($id));
+        $activate = HOST . "password/set.php?userid=" . getId($email) . "&code=" . $id;
         if (existsUsername($username)) {
             $message = "<div class='success'><img src='assets/icons/success.png' style='width:32px;height:32px;'><p>" . REGISTER_SUCCESS . "</p></div>";
         } else {
