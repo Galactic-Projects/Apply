@@ -45,7 +45,9 @@ if(isset($_GET['action'])) {
         $header .= "Content-type: text/html; charset=utf-8\r\n";
         $header .= "X-Mailer: PHP ". phpversion();
 
-        mail($receiver, $subject, str_replace("superAdventageUrl", $link, file_get_contents("../app/email/html/reset_password.html")), $header);
+        $body = str_replace(["superAdventageUrl", "%HOST%"], [$link, HOST], file_get_contents("../app/email/html/reset_password.html"));
+
+        mail($receiver, $subject, $body, $header);
 
         ?><meta http-equiv="refresh" content="3; URL=/login.php"><?php
     } else {

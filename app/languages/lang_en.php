@@ -56,4 +56,5 @@ define("TITLE_REGISTER", "Register :: Apply - Galactic Projects");
 define("TITLE_LOGIN", "Login :: Apply - Galactic Projects");
 define("TITLE_SET", "Set password :: Apply - Galactic Projects");
 define("TITLE_RESET", "Reset password :: Apply - Galactic Projects");
+define("TITLE_FORGET", "Forget password :: Apply - Galactic Projects");
 ?>

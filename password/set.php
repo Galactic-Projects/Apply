@@ -40,6 +40,7 @@ if(isset($_GET['action'])){
     if(getPassword($email) != sha1($code)) {
         if(file_exists("../app/mail.php")){
             require "../app/mail.php";
+            require "../app/config.php";
             $receiver = $email;
             $subject = "Account enabled - Apply Page";
             $from = getFromName() . " <" . getFromMail() . ">";
@@ -50,7 +51,8 @@ if(isset($_GET['action'])){
             $header .= "Content-type: text/html; charset=utf-8\r\n";
             $header .= "X-Mailer: PHP ". phpversion();
 
-            mail($receiver, $subject, file_get_contents("../app/email/html/account_enabled.html"), $header);
+            $body = str_replace("%HOST%", HOST, file_get_contents("../app/email/html/account_enabled.html"));
+            mail($receiver, $subject, $body, $header);
         }
 
         $message = "<div class='success'><img src='/assets/icons/success.png' style='width:32px;height:32px;'><p>" . CODE_SUCCESS_ENABLED . "</p></div>";

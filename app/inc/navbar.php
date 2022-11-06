@@ -1,4 +1,3 @@
-
 <body>
 <div class="navigation">
     <div class="logo">
@@ -16,5 +15,6 @@
         <div class="item">
             <a href="/account.php">ACCOUNT</a>
         </div>
+
     </div>
 </div>

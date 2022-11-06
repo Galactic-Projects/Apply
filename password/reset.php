@@ -48,8 +48,9 @@ if(isset($_GET['action'])){
         if(getPassword($email) != $oldPassword) {
             if(file_exists("../app/mail.php")){
                 require "../app/mail.php";
+                require "../app/config.php";
                 $receiver = $email;
-                $subject = "Password Reset - Apply Page";
+                $subject = "Account password has changed - Apply Page";
                 $from = getFromName() . " <" . getFromMail() . ">";
                 $replyTo = getReplyName() . " <" . getReplyMail() . ">";
                 $header  = "MIME-Version: 1.0\r\n";
@@ -58,7 +59,8 @@ if(isset($_GET['action'])){
                 $header .= "Content-type: text/html; charset=utf-8\r\n";
                 $header .= "X-Mailer: PHP ". phpversion();
 
-                mail($receiver, $subject, str_replace("superAdventageUrl", "mailto:".getReplyMail(), file_get_contents("../app/email/html/password_reset.html")), $header);
+                $body = str_replace(["superAdventageUrl", "%HOST%"], ["mailto:".getReplyMail(), HOST], file_get_contents("../app/email/html/password_reset.html"));
+                mail($receiver, $subject, $body, $header);
             }
 
             $message = "<div class='success'><img src='../assets/icons/success.png' style='width:32px;height:32px;'><p>" . RESET_SUCCESS_PASSWORD . "</p></div>";
