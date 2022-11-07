@@ -12,7 +12,7 @@ if(isset($_SESSION['userid'])){
 require "../app/data.php";
 include "../app/inc/header.php";
 require "../app/languages/lang_en.php";
-include "../app/inc/navbar.php";
+// include "../app/inc/navbar.php";
 require "../app/config.php";
 
 if(isset($_GET['action'])) {
@@ -53,19 +53,47 @@ if(isset($_GET['action'])) {
     } else {
         $message .= "<br>" . str_replace("important", $link, FORGET_NO_MAIL);
     }
-
-    if(isset($message)) {
-        echo $message;
-    }
 }?>
-<div class="forget">
-    <form action="?action=1" method="post">
-        <div class="cluster">
-            <input type="email" placeholder="<?php echo PLACEHOLDER_EMAIL; ?>" size="40" maxlength="64" name="email">
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                <form class="login100-form validate-form" action="?action=1" method="post">
+					<span class="login100-form-title p-b-49">
+						Forget password
+					</span>
+
+                    <div class="txt1 text-center p-t-54 p-b-20">
+						<span>
+							<?php
+                            if(isset($message)) {
+                                echo $message;
+                            }
+                            ?>
+						</span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-23" data-validate = "Email is required">
+                        <span class="label-input100">Email</span>
+                        <input class="input100" type="text" name="email" maxlength="64" placeholder="<?php echo PLACEHOLDER_EMAIL; ?>">
+                        <span class="focus-input100" data-symbol="&#xf206;"></span>
+                    </div>
+
+                    <div class="text-right p-t-8 p-b-31">
+                    </div>
+
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button type="submit" class="login100-form-btn">
+                                <?php echo BUTTON_SEND; ?>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <input type="submit" value="<?php echo BUTTON_SEND; ?>">
-    </form>
-</div>
+    </div>
 <?php
 include "../app/inc/footer.php";
 

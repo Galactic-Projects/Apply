@@ -10,15 +10,15 @@ $language = 'en';
 require "../app/languages/lang_en.php";
 
 if(!isset($_GET['userid']) || !isset($_GET['code'])) {
-    die(RESET_ERROR_ID);
+    die("<div class='background'><div class='error'><p>".RESET_ERROR_ID. "</p></div></div>");
 }
 
 if(sha1($code) != getPasswordToken($email)) {
-    die(RESET_ERROR_INVALID);
+    die("<div class='background'><div class='error'><p>".RESET_ERROR_INVALID. "</p></div></div>");
 }
 
 if(getPasswordTokenTime($email) === null || strtotime(getPasswordTokenTime($email)) < (time()-24*3600) ) {
-    die(RESET_ERROR_EXPIRED);
+    die("<div class='background'><div class='error'><p>".RESET_ERROR_EXPIRED. "</p></div></div>");
 }
 
 
@@ -68,22 +68,54 @@ if(isset($_GET['action'])){
         }
     }
 }
-include "../app/inc/navbar.php";
+//include "../app/inc/navbar.php";
 
-if(isset($message)) {
-    echo $message;
-}
 ?>
-    <div class='set'>
-        <form action='?action=1&amp;userid=<?php echo htmlentities($user); ?>&amp;code=<?php echo htmlentities($code); ?>' method='post'>
-            <div class='cluster'>
-                <input type='password' placeholder='<?php echo PLACEHOLDER_PASSWORD; ?>' size='40' maxlength='128' name='password'>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                <form class="login100-form validate-form" action="?action=1&amp;userid=<?php echo htmlentities($user); ?>&amp;code=<?php echo htmlentities($code); ?>" method="post">
+					<span class="login100-form-title p-b-49">
+						Reset password
+					</span>
+
+                    <div class="txt1 text-center p-t-54 p-b-20">
+						<span>
+							<?php
+                            if(isset($message)) {
+                                echo $message;
+                            }
+                            ?>
+						</span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <span class="label-input100">Password</span>
+                        <input class="input100" type="password" name="password" maxlength="64" placeholder="<?php echo PLACEHOLDER_PASSWORD; ?>">
+                        <span class="focus-input100" data-symbol="&#xf190;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <span class="label-input100">Password</span>
+                        <input class="input100" type="password" name="password2" placeholder="<?php echo PLACEHOLDER_REPEAT_PASSWORD; ?>">
+                        <span class="focus-input100" data-symbol="&#xf190;"></span>
+                    </div>
+
+                    <div class="text-right p-t-8 p-b-31">
+                    </div>
+
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button type="submit" class="login100-form-btn">
+                                <?php echo BUTTON_SEND; ?>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class='cluster'>
-                <input type='password' size='40' placeholder='<?php echo PLACEHOLDER_REPEAT_PASSWORD; ?>' maxlength='128' name='password2'>
-            </div>
-            <input type='submit' value='<?php echo BUTTON_SEND; ?>'>
-        </form>
+        </div>
     </div>
 <?php
 include "../app/inc/footer.php";

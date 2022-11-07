@@ -95,13 +95,13 @@ if(isset($_GET['action'])) {
 
                     <div class="wrap-input100 validate-input m-b-23" data-validate = "Email is required">
                         <span class="label-input100">Email</span>
-                        <input class="input100" type="text" name="email" placeholder="<?php echo PLACEHOLDER_EMAIL; ?>">
+                        <input class="input100" type="text" name="email" maxlength="64" placeholder="<?php echo PLACEHOLDER_EMAIL; ?>">
                         <span class="focus-input100" data-symbol="&#xf206;"></span>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Username is required">
                         <span class="label-input100">Username</span>
-                        <input class="input100" type="text" name="username" placeholder="<?php echo PLACEHOLDER_USERNAME; ?>">
+                        <input class="input100" type="text" name="username" maxlength="64" placeholder="<?php echo PLACEHOLDER_USERNAME; ?>">
                         <span class="focus-input100" data-symbol="&#xf206;"></span>
                     </div>
 
