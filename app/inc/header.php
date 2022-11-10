@@ -27,5 +27,5 @@
     <link href="/vendor/animsition/css/animsition.min.css"  rel="stylesheet">
     <link href="/vendor/select2/select2.min.css" rel="stylesheet">
     <link href="/vendor/daterangepicker/daterangepicker.css" rel="stylesheet">
-    <link href="/assets/stylesheet/util.css" rel="stylesheet">
+    <link href="/assets/stylesheet/util.css.uncompressed" rel="stylesheet">
 </head>

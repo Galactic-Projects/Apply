@@ -64,7 +64,7 @@ if(isset($_GET['action'])){
             }
 
             $message = "<div class='success'><img src='../assets/icons/success.png' style='width:32px;height:32px;'><p>" . RESET_SUCCESS_PASSWORD . "</p></div>";
-            ?><meta http-equiv="refresh" content="3; URL=/login.php">><?php
+            ?><meta http-equiv="refresh" content="3; URL=/login.php"><?php
         }
     }
 }

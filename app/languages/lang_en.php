@@ -47,6 +47,18 @@ define("ACCOUNT_PROFILE_IMAGE_BUTTON", "Upload");
 define("ACCOUNT_PROFILE_IMAGE_ERROR_SIZE", "File is to big (Max. 100MB)!");
 // ADMINISTRATION
 define("ADMIN_ERROR_PERMISSION", "You have no permission to enter this panel! <a href='/index.php'>Go back!</a>");
+// SELECTION
+// MANAGEMENT TITLE
+define("DASHBOARD", "Dashboard");
+define("USER_APPLICATION", "Self Application");
+define("USER_SETTINGS", "Profile");
+define("SERVER_APPLICATIONS", "User Applications");
+define("SERVER_SETTINGS", "Application Settings");
+define("", "");
+define("", "");
+define("", "");
+define("", "");
+define("", "");
 // TITLE
 define("TITLE_HOME", "Home :: Apply - Galactic Projects");
 define("TITLE_APPLY", "Apply :: Apply - Galactic Projects");

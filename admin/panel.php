@@ -19,11 +19,26 @@ if(getLanguage($email) != null) {
 }
 include "../app/languages/lang_" . $language . ".php";
 if(getRank($email) <= 1) {
-    die(ADMIN_ERROR_PERMISSION);
+    die("<div class='background'><div class='error'><p>".ADMIN_ERROR_PERMISSION. "</p></div></div>");
 }
 
-include "../app/inc/navbar.php";
+echo (str_replace(["profilePicture", "userName"],[ getProfilePicture($email), getUsername($email) ],  file_get_contents("../app/inc/administration-nav.html")));
+
+?>
+    <section class="home-section">
+        <?php
+        if(isset($message)) {
+            echo '<div class="messages" style="display: inline-block;">' . $message . '</div>';
+        }
+        ?>
+        <div class="text">
+        </div>
+    </section>
 
 
+
+
+    <script src="../assets/scripts/main.js"></script>
+<?php
 include "../app/inc/footer.php";
 ?>
