@@ -46,7 +46,7 @@ define("ACCOUNT_PROFILE_LOGOUT", "Logout");
 define("ACCOUNT_PROFILE_IMAGE_BUTTON", "Upload");
 define("ACCOUNT_PROFILE_IMAGE_ERROR_SIZE", "File is to big (Max. 100MB)!");
 // ADMINISTRATION
-define("ADMIN_ERROR_PERMISSION", "You have no permission to enter this panel! <a href='/index.php'>Go back!</a>");
+define("ADMIN_ERROR_PERMISSION", "You have no permission to enter this panel!<br> <a href='/index.php'>Go back!</a>");
 // SELECTION
 // MANAGEMENT TITLE
 define("DASHBOARD", "Dashboard");

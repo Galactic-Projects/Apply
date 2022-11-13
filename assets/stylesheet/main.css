@@ -392,14 +392,11 @@ iframe {
     color: #FFFFFF;
     width: 100%;
     height: 100%;
-}
-.background .error img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
+    display: flex;
+    justify-content: center;
 }
 .background p {
+    top: 50%;
     text-align: center;
     font-size: 32px;
 }

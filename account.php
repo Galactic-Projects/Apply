@@ -79,7 +79,15 @@ echo $translated;
         }
         ?>
         <div class="text">
-            Dashboard
+            <?php
+            if(isset($_GET["application"])) {
+                echo USER_APPLICATION;
+            } else if(isset($_GET["settings"])) {
+                echo USER_SETTINGS;
+            } else {
+                echo DASHBOARD;
+            }
+            ?>
         </div>
     </section>
 

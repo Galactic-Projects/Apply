@@ -19,7 +19,7 @@ if(getLanguage($email) != null) {
 }
 include "../app/languages/lang_" . $language . ".php";
 if(getRank($email) <= 1) {
-    die("<div class='background'><div class='error'><p>".ADMIN_ERROR_PERMISSION. "</p></div></div>");
+    die("<div class='background'><div class='error'><p>".ADMIN_ERROR_PERMISSION."</p></div></div>");
 }
 
 echo (str_replace(["profilePicture", "userName"],[ getProfilePicture($email), getUsername($email) ],  file_get_contents("../app/inc/administration-nav.html")));
@@ -32,6 +32,15 @@ echo (str_replace(["profilePicture", "userName"],[ getProfilePicture($email), ge
         }
         ?>
         <div class="text">
+            <?php
+                if(isset($_GET["application"])) {
+                    echo SERVER_APPLICATIONS;
+                } else if(isset($_GET["settings"])) {
+                    echo SERVER_SETTINGS;
+                } else {
+                    echo DASHBOARD;
+                }
+            ?>
         </div>
     </section>
 
