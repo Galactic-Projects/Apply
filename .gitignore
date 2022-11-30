@@ -1,4 +1,4 @@
 *.idea
-*app\config.php
-*app\mail.php
-*app\mysql.php
+app/config.php
+app/mail.php
+app/mysql.php
