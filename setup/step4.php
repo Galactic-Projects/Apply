@@ -92,12 +92,43 @@ if(isset($_SESSION["host"]) && isset($_SESSION["database"]) && isset($_SESSION["
     exit;
 }
 ?>
-<div class="content">
-    <p>Please enter a host name.</p>
-    <h5>Host Settings</h5>
-    <form action="step4.php" method="post">
-        <input type="text" name="host" placeholder="http://localhost.xzy/" required>
-        <button type="submit" name="submit">Finish</button>
-    </form>
-</div>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                <form action="step4.php" method="post">
+                    <span class="login100-form-title p-b-49">
+                        Host Settings
+                        <p>Please enter a host name.</p>
+					</span>
+
+                    <div class="txt1 text-center p-t-54 p-b-20">
+						<span>
+							<?php
+                            if(isset($message)) {
+                                echo $message;
+                            }
+                            ?>
+						</span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Hostname is required">
+                        <span class="label-input100">Host</span>
+                        <input class="input100" type="text" name="host" placeholder="http://localhost.xzy/"required>
+                        <span class="focus-input100" data-symbol="&#xf1c0;"></span>
+                    </div>
+                    
+                    <div class="text-right p-t-8 p-b-31">
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button type="submit" name="submit" class="login100-form-btn">Continue</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>    
+    </div>
+</body>
 <?php include "../app/inc/footer.php" ?>

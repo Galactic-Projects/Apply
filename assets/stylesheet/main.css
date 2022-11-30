@@ -664,3 +664,22 @@ iframe {
         padding-right: 15px;
     }
 }
+.tg  {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+.tg td{
+    padding:10px 5px;
+    border-style:solid;
+    border-width:1px;
+    overflow:hidden;
+    word-break:normal;
+}
+.tg th{
+    font-weight:normal;
+    padding:10px 5px;
+    border-style:solid;
+    border-width:1px;
+    overflow:hidden;
+    word-break:normal;
+}

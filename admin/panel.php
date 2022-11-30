@@ -36,16 +36,21 @@ echo (str_replace(["profilePicture", "userName"],[ getProfilePicture($email), ge
                 if(isset($_GET["application"])) {
                     echo SERVER_APPLICATIONS;
                 } else if(isset($_GET["settings"])) {
-                    echo SERVER_SETTINGS;
+                    echo SERVER_SETTINGS . '<table class="tg">
+                    <tr>
+                        <th class="tg-031e">Setting</th>
+                        <th class="tg-031e">Rank</th>
+                        <th class="tg-031e">Text</th>
+                        <th class="tg-031e">Min. Age</th>
+                        <th class="tg-031e">Enabled</th>
+                    </tr>
+                </table>';
                 } else {
                     echo DASHBOARD;
                 }
             ?>
         </div>
     </section>
-
-
-
 
     <script src="../assets/scripts/main.js"></script>
 <?php
