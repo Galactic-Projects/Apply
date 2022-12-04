@@ -72,6 +72,8 @@ function getProfilePicture($email): string {
     }
     return "";
 }
+
+
 function getID($email): int  {
     require("mysql.php");
     $stmt = $mysql->prepare("SELECT * FROM users WHERE EMAIL = :email");
@@ -180,4 +182,16 @@ function getPassword($email): string {
     }
     return "";
 }
+
+function requireServerSettings(): array {
+require("mysql.php");
+    $stmt = $mysql->prepare("SELECT * FROM settings");
+    $stmt->execute();
+    while ($row = $stmt->fetch()) {
+        return array(json_encode($row["NAME"], $row["REQUIREMENTS"], $row["MINAGE"], $row["ENABLED"]));
+    }
+    return array(null);
+}
+
+
 ?>
