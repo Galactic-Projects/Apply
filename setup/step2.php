@@ -56,7 +56,8 @@ if(isset($_POST["submit"])){
                 NAME VARCHAR(128) UNIQUE NOT NULL DEFAULT "",
                 REQUIREMENTS LONGTEXT,
                 MINAGE INT(12) DEFAULT 16,
-                ENABLED JSON NOT NULL DEFAULT '. $json . '
+                CENABLED BOOLEAN DEFAULT FALSE,
+                NENABLED BOOLEAN DEFAULT FALSE
             )');
             $dbSettings->execute();
             $settings= $mysql->prepare("INSERT INTO settings (NAME, REQUIREMENTS, MINAGE) VALUES (:name, :required, :min)");

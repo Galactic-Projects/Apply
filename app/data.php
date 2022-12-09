@@ -183,15 +183,31 @@ function getPassword($email): string {
     return "";
 }
 
-function requireServerSettings(): array {
-require("mysql.php");
-    $stmt = $mysql->prepare("SELECT * FROM settings");
+function maxCount(): int {
+    require ("mysql.php");
+    $stmt = $mysql->prepare("SELECT COUNT(*) AS COUNT FROM settings");
     $stmt->execute();
-    while ($row = $stmt->fetch()) {
-        return array(json_encode($row["NAME"], $row["REQUIREMENTS"], $row["MINAGE"], $row["ENABLED"]));
-    }
-    return array(null);
+    return $stmt->fetch()["COUNT"];
 }
 
+function getServerSettings($id): array|string
+{
+require("mysql.php");
+    $stmt = $mysql->prepare("SELECT * FROM settings WHERE ID = :id");
+    $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $row = $stmt->fetch();
+    return array("NAME"=>$row["NAME"], "REQUIREMENTS"=>$row["REQUIREMENTS"], "MINAGE"=>$row["MINAGE"],"CENABLED"=>$row["CENABLED"],"NENABLED"=>$row["NENABLED"]);
+}
+
+function createServerSetting($name, $requirements, $minage)
+{
+    require("mysql.php");
+    $stmt = $mysql->prepare("INSERT INTO settings (NAME, REQUIREMENTS, MINAGE) VALUES(:name, :require, :age)");
+    $stmt->bindParam(":name", $name, PDO::PARAM_STR);
+    $stmt->bindParam(":require", $requirements, PDO::PARAM_STR);
+    $stmt->bindParam(":age", $minage, PDO::PARAM_INT);
+    $stmt->execute();
+}
 
 ?>

@@ -54,7 +54,7 @@ define("USER_APPLICATION", "Self Application");
 define("USER_SETTINGS", "Profile");
 define("SERVER_APPLICATIONS", "User Applications");
 define("SERVER_SETTINGS", "Application Settings");
-define("", "");
+define("SERVER_SETTINGS_ADD", "Add Application Setting");
 define("", "");
 define("", "");
 define("", "");

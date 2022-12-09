@@ -24,6 +24,16 @@ if(getRank($email) <= 1) {
 
 echo (str_replace(["profilePicture", "userName"],[ getProfilePicture($email), getUsername($email) ],  file_get_contents("../app/inc/administration-nav.html")));
 
+
+if(isset($_GET["add-query"])) {
+    $name = $_POST['name'];
+    $requirements = $_POST['require'];
+    $minage = $_POST['minage'];
+
+    createServerSetting($name, $requirements, $minage);
+    header("Location: panel.php?settings=1");
+}
+
 ?>
 <section class="home-section">
     <?php
@@ -35,51 +45,85 @@ echo (str_replace(["profilePicture", "userName"],[ getProfilePicture($email), ge
         <?php
                 if(isset($_GET["application"])) {
                     echo SERVER_APPLICATIONS;
-                } else if(isset($_GET["settings"])) {
-                    echo SERVER_SETTINGS . 
-                    '<table class="table align-middle mb-0 bg-black justify-content">
-  <thead class="text-white">
-    <tr>
-      <th>Name</th>
-      <th>Title</th>
-      <th>Status</th>
-      <th>Position</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <div class="d-flex align-items-center">
-          <img
-              src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-              alt=""
-              style="width: 45px; height: 45px"
-              class="rounded-circle"
-              />
-          <div class="ms-3">
-            <p class="fw-bold mb-1 text-white">John Doe</p>
-            <p class="text-muted mb-0 text-white">john.doe@gmail.com</p>
-          </div>
+                } else if(isset($_GET["add"])) {
+                    echo SERVER_SETTINGS_ADD. '
+    <div class="container-login100">
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form validate-form" action="?add-query=1" method="post">
+                <span class="login100-form-title p-b-49">
+                    Add
+                </span>
+
+                <div class="txt1 text-center p-t-54 p-b-20">
+                    <span>
+                    </span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-23" data-validate="Name is required">
+                    <span class="label-input100">Name</span>
+                    <input class="input100" type="text" name="name" placeholder="Example: Sagittarius A">
+                    <span class="focus-input100" data-symbol="&#xf206;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-23" data-validate="Requirements is required">
+                    <span class="label-input100">Requirements</span>
+                    <input class="input100" type="text" name="require" placeholder="Example: Dear ...">
+                    <span class="focus-input100" data-symbol="&#xf206;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-23" data-validate="Minimum Age is required">
+                    <span class="label-input100">Minimum Age</span>
+                    <input class="input100" type="number" name="minage" placeholder="Example: 16">
+                    <span class="focus-input100" data-symbol="&#xf206;"></span>
+                </div
+
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button type="submit" class="login100-form-btn">
+                            ' . BUTTON_SEND .'
+                        </button>
+                    </div>
+                </div>
+                </div>
+            </form>
         </div>
-      </td>
-      <td>
-        <p class="fw-normal mb-1 text-white">Software engineer</p>
-        <p class="text-muted mb-0 text-white">IT department</p>
-      </td>
-      <td>
-        <span class="badge badge-success rounded-pill d-inline text-white">Active</span>
-      </td>
-      <td class="text-white">Senior</td>
-      <td>
-        <button type="button" class="btn btn-link btn-sm btn-rounded text-white">
-          Edit
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+    </div>
 ';
+                } else if(isset($_GET["settings"])) {
+                    echo SERVER_SETTINGS .
+                        '<div class="table-responsive bg-dark justify-content-center">
+
+  <table class="table text-white">
+    <thead>
+      <tr>
+        <th scope="col" style="font-size: 16px">ID</th>
+        <th scope="col" style="font-size: 16px">Rank</th>
+        <th scope="col" style="font-size: 16px">Requirements</th>
+        <th scope="col" style="font-size: 16px">Minimum Age</th>
+        <th scope="col" style="font-size: 16px">Enabled (C,N)</th>
+        <th scope="col" style="font-size: 16px">Actions</th>
+        <a href="?add=1" class="btn btn-dark">Add</a>
+      </tr>
+    </thead>
+    <tbody>
+      ';
+      for($i = 1; $i <= maxCount(); $i++){
+                        echo '   
+      <tr>    
+        <td style="font-size: 16px">'.$i.'</td>          
+        <td style="font-size: 16px">'.getServerSettings($i)["NAME"].'</td>
+        <td style="font-size: 16px">'.getServerSettings($i)["REQUIREMENTS"].'</td>
+        <td style="font-size: 16px">'.getServerSettings($i)["MINAGE"].'</td>
+        <td style="font-size: 16px">'.(getServerSettings($i)["CENABLED"] ? "true" : "false").' | '.(getServerSettings($i)["NENABLED"] ? "true" : "false").'</td>
+        <td style="font-size: 16px"><a href="?edit=1&id=' .$i.'"><i class="far fa-edit"></i></a> / <a href="?remove=1&id=' .$i.'"><i class="fas fa-times"></i></a></td>
+      </tr>';
+                    }
+
+                echo '
+    </tbody>
+  </table>
+</div>';
                 } else {
                     echo DASHBOARD;
                 }
