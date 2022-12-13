@@ -12,3 +12,4 @@ function generateRandom($j = 32): string
     }
     return $string;
 }
+?>

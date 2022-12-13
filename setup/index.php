@@ -4,7 +4,7 @@ if(file_exists("../app/mysql.php")){
     exit;
 }
 session_start();
-include "../app/inc/header.php";
+include "../app/inc/header.html";
 ?>
 <body>
 <?php
@@ -84,4 +84,4 @@ if(isset($_POST["submit"])){
         </div>    
     </div>
 </body>
-<?php include "../app/inc/footer.php" ?>
+<?php include "../app/inc/footer.html" ?>

@@ -1,8 +1,11 @@
 <?php // SOMEONE PLEASE HELP ME WITH THIS!
 use PHPMailer\PHPMailer\PHPMailer; 
 include_once "../vendor/phpmailer/phpmailer/src/PHPMailer.php";
-include_once "../vendor/phpmailer/phpmailer/src/SMTP.php"
-function sendMail($address, $username, $replyAddress, $replyName, $fromAddress, $fromName, $subject, $altBody ,$htmlInput) {
+include_once "../vendor/phpmailer/phpmailer/src/SMTP.php";
+include_once "../vendor/phpmailer/phpmailer/src/OAuth.php";
+include_once "../vendor/phpmailer/phpmailer/src/OAuthTokenProvider.php";
+function sendMail($address, $username, $replyAddress, $replyName, $fromAddress, $fromName, $subject, $altBody ,$htmlInput): void
+{
     try {
         $host = "";
         $users =  "";
@@ -34,10 +37,9 @@ function sendMail($address, $username, $replyAddress, $replyName, $fromAddress, 
         $mail->ClearAttachments();
 
         echo "Message sent\n";
-    } catch (phpmailerException $e) {
+    } catch (\PHPMailer\PHPMailer\Exception $e) {
         echo $e->errorMessage(); 
     } catch (Exception $e) {
         echo $e->getMessage(); 
     }
 }
-?>

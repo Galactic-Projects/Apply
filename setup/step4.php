@@ -4,7 +4,7 @@ if(file_exists("../app/mysql.php")){
     exit;
 }
 session_start();
-include "../app/inc/header.php";
+include "../app/inc/header.html";
 if(isset($_SESSION["host"]) && isset($_SESSION["database"]) && isset($_SESSION["user"]) && isset($_SESSION["password"])){
     if(isset($_SESSION["fromMail"]) && isset($_SESSION["fromName"]) && isset($_SESSION["replyMail"]) && isset($_SESSION["replyName"])){
         if(isset($_POST["submit"])) {
@@ -12,7 +12,7 @@ if(isset($_SESSION["host"]) && isset($_SESSION["database"]) && isset($_SESSION["
             if(!$mysqlfile){
                 ?><body>
                 <div class="content">
-                    <img src="../assets/icons/error.png" alt="cross" id="status">
+                    <img src="https://cdni.galacticprojects.net//icons/error.png" alt="cross" id="status">
                     <h1>Error</h1>
                     <p>Installation failed. Reason: Can't write mysql.php.</p>
                     <br>
@@ -21,27 +21,24 @@ if(isset($_SESSION["host"]) && isset($_SESSION["database"]) && isset($_SESSION["
                 </body><?php
                 exit;
             }
-            echo fwrite($mysqlfile, '
-<?php
-    $host = "'.$_SESSION["host"].'";
-    $db = "'.$_SESSION["database"].'";
-    $user = "'.$_SESSION["user"].'";
-    $password = "'.$_SESSION["password"].'";
-    
-    try {
-        $mysql = new PDO("mysql:host=$host;dbname=$db", $user, $password);
-    } catch (PDOException $e){
-        e->getMessage();
-    } 
-?> 
-            ');
+            echo fwrite($mysqlfile, '<?php 
+$host = "'.$_SESSION["host"].'";
+$db = "'.$_SESSION["database"].'";
+$user = "'.$_SESSION["user"].'";
+$password = "'.$_SESSION["password"].'";
+try {
+    $mysql = new PDO("mysql:host=$host;dbname=$db", $user, $password);
+} catch (PDOException $e){
+    e->getMessage();
+}
+?>');
             fclose($mysqlfile);
 
             $mailInfo = fopen("../app/mail.php", "w");
             if(!$mailInfo){
                 ?><body>
                 <div class="content">
-                    <img src="../assets/icons/error.png" alt="cross" id="status">
+                    <img src="https://cdni.galacticprojects.net//icons/error.png" alt="cross" id="status">
                     <h1>Error</h1>
                     <p>Installation failed. Reason: Can't write mail.php.</p>
                     <br>
@@ -50,20 +47,19 @@ if(isset($_SESSION["host"]) && isset($_SESSION["database"]) && isset($_SESSION["
                 </body><?php
                 exit;
             }
-            echo fwrite($mailInfo, '<?php 
-            function getFromMail(): string { return "'.$_SESSION["fromMail"].'"; }
-            function getFromName(): string { return "'.$_SESSION["fromName"].'"; }
-            function getReplyMail(): string { return "'.$_SESSION["replyMail"].'"; }
-            function getReplyName(): string { return "'.$_SESSION["replyName"].'"; }
-            ?>
-            ');
+            echo fwrite($mailInfo, '<?php
+function getFromMail(): string { return "'.$_SESSION["fromMail"].'"; }
+function getFromName(): string { return "'.$_SESSION["fromName"].'"; }
+function getReplyMail(): string { return "'.$_SESSION["replyMail"].'"; }
+function getReplyName(): string { return "'.$_SESSION["replyName"].'"; }
+?> ');
             fclose($mailInfo);
 
             $configFile = fopen("../app/config.php", "w");
             if(!$configFile){
                 ?><body>
                 <div class="content">
-                    <img src="../assets/icons/error.png" alt="cross" id="status">
+                    <img src="https://cdni.galacticprojects.net//icons/error.png" alt="cross" id="status">
                     <h1>Error</h1>
                     <p>Installation failed. Reason: Can't write config.php.</p>
                     <br>
@@ -73,9 +69,8 @@ if(isset($_SESSION["host"]) && isset($_SESSION["database"]) && isset($_SESSION["
                 exit;
             }
             echo fwrite($mailInfo, '<?php 
-            define("HOST", '. $_POST["host"].')
-            ?>
-            ');
+define("HOST", '. $_POST["host"].'
+?>');
             fclose($configFile);
             session_destroy();
             ?>
@@ -131,4 +126,4 @@ if(isset($_SESSION["host"]) && isset($_SESSION["database"]) && isset($_SESSION["
         </div>    
     </div>
 </body>
-<?php include "../app/inc/footer.php" ?>
+<?php include "../app/inc/footer.html" ?>

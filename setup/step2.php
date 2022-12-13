@@ -5,7 +5,7 @@ if(file_exists("../app/mysql.php")){
     exit;
 }
 session_start();
-include "../app/inc/header.php";
+include "../app/inc/header.html";
 if(isset($_SESSION["host"]) && isset($_SESSION["database"]) &&
 isset($_SESSION["user"]) && isset($_SESSION["password"])){
 if(isset($_POST["submit"])){
@@ -24,7 +24,7 @@ if(isset($_POST["submit"])){
                 PASSWORD VARCHAR(128) NOT NULL DEFAULT '',
                 RANK TINYINT(1) DEFAULT 1,
                 LANGUAGE VARCHAR(12) NOT NULL DEFAULT 'en',
-                PROFILEPICTURE VARCHAR(256) NOT NULL DEFAULT '/assets/images/profiles/default.jpg',
+                PROFILEPICTURE VARCHAR(256) NOT NULL DEFAULT 'https://cdni.galacticprojects.net/images/profiles/default.jpg',
                 AGE TIMESTAMP NULL,
                 CREATED_AT TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 LATEST_ACCESS TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -50,7 +50,7 @@ if(isset($_POST["submit"])){
             $account->bindParam(":enabled", $enable);
             $account->execute();
             // SETTINGS
-            $json = json_encode('{"community": false, "network": false}');
+
             $dbSettings = $mysql->prepare('CREATE TABLE IF NOT EXISTS settings (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 NAME VARCHAR(128) UNIQUE NOT NULL DEFAULT "",
@@ -67,7 +67,6 @@ if(isset($_POST["submit"])){
             $settings->bindParam(":name", $name, PDO::PARAM_STR);
             $settings->bindParam(":required", $requirements, PDO::PARAM_STR);
             $settings->bindParam(":min", $min, PDO::PARAM_INT);
-            $settings->bindParam(":enable", $enabled, PDO::PARAM_BOOL);
             $settings->execute();
             // APPLICATIONS
             $dbApplications = $mysql->prepare("CREATE TABLE IF NOT EXISTS applications (
@@ -147,5 +146,5 @@ alert("Unable to connect to the MySQL database or an error occurred.<?php echo $
 </div>
 </body>
 <?php
-include "../app/inc/footer.php";
+include "../app/inc/footer.html";
 ?>

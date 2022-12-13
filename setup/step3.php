@@ -4,7 +4,7 @@ if(file_exists("../app/mysql.php")){
     exit;
 }
 session_start();
-include "../app/inc/header.php";
+include "../app/inc/header.html";
 if(isset($_SESSION["host"]) && isset($_SESSION["database"]) && isset($_SESSION["user"]) && isset($_SESSION["password"])){
     if(isset($_POST["submit"])){
         $_SESSION["fromMail"] = $_POST["fromMail"];
@@ -81,4 +81,4 @@ if(isset($_SESSION["host"]) && isset($_SESSION["database"]) && isset($_SESSION["
     </div>
 </body>
 
-<?php include "../app/inc/footer.php" ?>
+<?php include "../app/inc/footer.html" ?>
