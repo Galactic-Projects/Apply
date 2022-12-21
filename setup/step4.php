@@ -68,9 +68,7 @@ function getReplyName(): string { return "'.$_SESSION["replyName"].'"; }
                 </body><?php
                 exit;
             }
-            echo fwrite($mailInfo, '<?php 
-define("HOST", '. $_POST["host"].'
-?>');
+            echo fwrite($configFile, '<?php define("HOST", "' . $_POST["host"] . '" ?>');
             fclose($configFile);
             session_destroy();
             ?>
